@@ -1,0 +1,14 @@
+# Ignore API keys
+config.py
+*.env
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environment
+venv/
+.env/
+
+# Ignore Streamlit logs
+.streamlit/
