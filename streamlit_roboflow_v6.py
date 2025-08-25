@@ -8,6 +8,9 @@ import os
 from datetime import datetime
 import numpy as np
 
+# --- Streamlit UI ---
+st.set_page_config(page_title="Solar Panel Detector", page_icon="☀️", layout="wide")
+
 
 # --- Initialize Roboflow ---
 # rf = Roboflow(api_key=st.secrets["robo_flow_api_key"])
@@ -194,8 +197,6 @@ def add_ui_elements(image, detection_count, timestamp=None):
     
     return img
 
-# --- Streamlit UI ---
-st.set_page_config(page_title="Solar Panel Detector", page_icon="☀️", layout="wide")
 
 # Custom CSS for Roboflow-style appearance
 st.markdown("""
