@@ -10,7 +10,7 @@ import numpy as np
 
 
 # --- Initialize Roboflow ---
-rf = Roboflow(api_key=st.secrets["robo_flow_api_key"]))
+rf = Roboflow(api_key=st.secrets["robo_flow_api_key"])
 project = rf.workspace().project("solarpv-india-lczsp")
 model = project.version(4).model
 
