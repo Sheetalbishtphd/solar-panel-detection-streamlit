@@ -10,14 +10,14 @@ import numpy as np
 
 
 # --- Initialize Roboflow ---
-rf = Roboflow(api_key=robo_flow_api_key)
+rf = Roboflow(api_key=st.secrets["robo_flow_api_key"]))
 project = rf.workspace().project("solarpv-india-lczsp")
 model = project.version(4).model
 
 # --- Helper function: Google Maps image download ---
 def download_google_satellite(lat, lon, zoom=20, size="640x640"):
     # Hardcoded Google API key
-    gapi_key = your_gapi_key
+    gapi_key = st.secrets["your_gapi_key"]
     url = f"https://maps.googleapis.com/maps/api/staticmap?center={lat},{lon}&zoom={zoom}&size={size}&maptype=satellite&key={gapi_key}"
     response = requests.get(url)
     if response.status_code == 200:
