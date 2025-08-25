@@ -10,9 +10,17 @@ import numpy as np
 
 
 # --- Initialize Roboflow ---
-rf = Roboflow(api_key=st.secrets["robo_flow_api_key"])
-project = rf.workspace().project("solarpv-india-lczsp")
-model = project.version(4).model
+# rf = Roboflow(api_key=st.secrets["robo_flow_api_key"])
+# project = rf.workspace().project("solarpv-india-lczsp")
+# model = project.version(4).model
+
+@st.cache_resource
+def load_model():
+    rf = Roboflow(api_key=st.secrets["robo_flow_api_key"])
+    project = rf.workspace().project("solarpv-india-lczsp")
+    return project.version(4).model
+
+model = load_model()
 
 # --- Helper function: Google Maps image download ---
 def download_google_satellite(lat, lon, zoom=20, size="640x640"):
@@ -258,9 +266,9 @@ elif mode == "Latitude/Longitude + Google Maps API":
     input_col1, input_col2, input_col3 = st.columns([1, 1, 1])
     
     with input_col1:
-        lat = st.text_input("Latitude", "")
+        lat = st.text_input("Latitude (sample: 13.0439)", "")
     with input_col2:
-        lon = st.text_input("Longitude", "")
+        lon = st.text_input("Longitude (sample: 77.6186)", "")
     with input_col3:
         st.write("")  # Empty space for alignment
         detect_button = st.button("🔍 Fetch & Detect", type="primary")
