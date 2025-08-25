@@ -266,9 +266,9 @@ elif mode == "Latitude/Longitude + Google Maps API":
     input_col1, input_col2, input_col3 = st.columns([1, 1, 1])
     
     with input_col1:
-        lat = st.text_input("Latitude (sample: 13.0439)", "")
+        lat = st.text_input("Latitude", "")
     with input_col2:
-        lon = st.text_input("Longitude (sample: 77.6186)", "")
+        lon = st.text_input("Longitude", "")
     with input_col3:
         st.write("")  # Empty space for alignment
         detect_button = st.button("🔍 Fetch & Detect", type="primary")
