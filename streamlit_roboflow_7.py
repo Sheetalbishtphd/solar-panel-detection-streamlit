@@ -15,8 +15,8 @@ try:
     ROBOFLOW_API_KEY = st.secrets["ROBOFLOW_API_KEY"]
     GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
 except:
-    ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "4ZAOTljVY56GUvmArTiC")
-    GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "AIzaSyBTCRGcbK2ppV2U8zOD8_gfiQhh8KbTgmE")
+    ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "")
+    GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 
 if not ROBOFLOW_API_KEY:
     st.error("⚠️ ROBOFLOW_API_KEY not found. Please add it to .streamlit/secrets.toml")

@@ -7,7 +7,7 @@ from roboflow import Roboflow
 
 # --- Initialize Roboflow ---
 # Replace with your API key and project details
-rf = Roboflow(api_key="4ZAOTljVY56GUvmArTiC")
+rf = Roboflow(api_key=os.getenv("ROBOFLOW_API_KEY"))
 project = rf.workspace().project("solarpv-india-lczsp")
 model = project.version(4).model
 

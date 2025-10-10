@@ -9,7 +9,7 @@ from datetime import datetime
 import numpy as np
 
 # --- Initialize Roboflow ---
-rf = Roboflow(api_key="4ZAOTljVY56GUvmArTiC")
+rf = Roboflow(api_key=os.getenv("ROBOFLOW_API_KEY"))
 project = rf.workspace().project("solarpv-india-lczsp")
 model = project.version(4).model
 
