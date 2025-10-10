@@ -7,13 +7,31 @@ import tempfile
 import os
 from datetime import datetime
 import numpy as np
-import config
 import re
 
 # --- Initialize Roboflow ---
-rf = Roboflow(api_key="4ZAOTljVY56GUvmArTiC")
-project = rf.workspace().project("solarpv-india-lczsp")
-model = project.version(6).model
+# Try to get API key from Streamlit secrets, fallback to environment variable
+try:
+    ROBOFLOW_API_KEY = st.secrets["ROBOFLOW_API_KEY"]
+    GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
+except:
+    ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "4ZAOTljVY56GUvmArTiC")
+    GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "AIzaSyBTCRGcbK2ppV2U8zOD8_gfiQhh8KbTgmE")
+
+if not ROBOFLOW_API_KEY:
+    st.error("⚠️ ROBOFLOW_API_KEY not found. Please add it to .streamlit/secrets.toml")
+    st.stop()
+
+try:
+    rf = Roboflow(api_key=ROBOFLOW_API_KEY)
+    # Try to get the project directly without workspace()
+    project = rf.workspace().project("solarpv-india-lczsp")
+    model = project.version(6).model
+except AttributeError:
+    # Fallback: use direct workspace name if workspace() fails
+    rf = Roboflow(api_key=ROBOFLOW_API_KEY)
+    project = rf.workspace("sheetalbishtphd-hgwco").project("solarpv-india-lczsp")
+    model = project.version(6).model
 
 # --- Helper function: Convert DMS to decimal degrees ---
 def dms_to_decimal(dms_string):
@@ -88,9 +106,7 @@ def parse_coordinate(coord_input, coord_type):
 
 # --- Helper function: Google Maps image download ---
 def download_google_satellite(lat, lon, zoom=20, size="640x640"):
-    # Hardcoded Google API key
-    gapi_key = "AIzaSyBTCRGcbK2ppV2U8zOD8_gfiQhh8KbTgmE"
-    url = f"https://maps.googleapis.com/maps/api/staticmap?center={lat},{lon}&zoom={zoom}&size={size}&maptype=satellite&key={gapi_key}"
+    url = f"https://maps.googleapis.com/maps/api/staticmap?center={lat},{lon}&zoom={zoom}&size={size}&maptype=satellite&key={GOOGLE_API_KEY}"
     response = requests.get(url)
     if response.status_code == 200:
         img = Image.open(BytesIO(response.content))

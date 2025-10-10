@@ -13,11 +13,17 @@ from datetime import datetime
 import pandas as pd
 import re
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # --- Initialize Roboflow ---
+ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 
 print("Initializing Roboflow model...")
-rf = Roboflow(api_key="4ZAOTljVY56GUvmArTiC")
+rf = Roboflow(api_key=ROBOFLOW_API_KEY)
 project = rf.workspace().project("solarpv-india-lczsp")
 model = project.version(6).model
 print("Model initialized successfully!")
@@ -96,10 +102,9 @@ def parse_coordinate(coord_input, coord_type):
         return None
 
 # --- Helper function: Google Maps image download ---
-def download_google_satellite(lat, lon, zoom=20, size="640x640"):
+def download_google_satellite(lat, lon, zoom=21, size="640x640"):
     """Download satellite image from Google Maps Static API"""
-    gapi_key = "AIzaSyBTCRGcbK2ppV2U8zOD8_gfiQhh8KbTgmE"
-    url = f"https://maps.googleapis.com/maps/api/staticmap?center={lat},{lon}&zoom={zoom}&size={size}&maptype=satellite&key={gapi_key}"
+    url = f"https://maps.googleapis.com/maps/api/staticmap?center={lat},{lon}&zoom={zoom}&size={size}&maptype=satellite&key={GOOGLE_API_KEY}"
     response = requests.get(url)
     if response.status_code == 200:
         img = Image.open(BytesIO(response.content))
@@ -282,8 +287,8 @@ def process_excel_file(excel_path, output_dir='output'):
     output_path.mkdir(exist_ok=True)
     
     # Create subdirectories for original and detected images
-    original_dir = output_path / 'original'
-    detected_dir = output_path / 'detected'
+    original_dir = output_path / zoom_21 /'original'
+    detected_dir = output_path /zoom_21 / 'detected'
     original_dir.mkdir(exist_ok=True)
     detected_dir.mkdir(exist_ok=True)
     
@@ -394,7 +399,7 @@ def process_excel_file(excel_path, output_dir='output'):
     
     # Save results to CSV
     results_df = pd.DataFrame(results)
-    results_csv = output_path / 'detection_results.csv'
+    results_csv = output_path / 'detection_results.xlsx'
     results_df.to_csv(results_csv, index=False)
     print(f"\n{'='*60}")
     print(f"✅ Processing complete!")
@@ -421,7 +426,7 @@ if __name__ == "__main__":
         excel_file = sys.argv[1]
     else:
         # Default Excel file name
-        excel_file = "Lucknow_coords 1.xlsx"
+        excel_file = "/Users/manish/Desktop/Sheetal/office_work/cursor/solar_roboflow/excel/zoom_21.xlsx"
     
     # Check if output directory is specified
     if len(sys.argv) > 2:

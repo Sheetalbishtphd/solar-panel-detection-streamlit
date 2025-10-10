@@ -12,3 +12,25 @@ venv/
 
 # Ignore Streamlit logs
 .streamlit/
+
+# Environment variables
+.env
+.env.local
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# API keys and config
+config.py
+
+# Output directories
+output/
+*.xlsx
+*.csv
+!requirements.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
