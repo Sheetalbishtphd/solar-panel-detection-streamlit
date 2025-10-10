@@ -20,7 +20,8 @@ st.set_page_config(page_title="Solar Panel Detector", page_icon="☀️", layout
 @st.cache_resource
 def load_model():
     rf = Roboflow(api_key=st.secrets["robo_flow_api_key"])
-    project = rf.workspace().project("solarpv-india-lczsp")
+    project_name = st.secrets.get("ROBOFLOW_PROJECT", os.getenv("ROBOFLOW_PROJECT", ""))
+    project = rf.workspace().project(project_name)
     return project.version(4).model
 
 model = load_model()

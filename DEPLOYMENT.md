@@ -17,6 +17,8 @@ All API keys have been removed from the code and are now managed through environ
    ```
    ROBOFLOW_API_KEY=your_actual_roboflow_api_key
    GOOGLE_API_KEY=your_actual_google_api_key
+   ROBOFLOW_PROJECT=solarpv-india-lczsp
+   ROBOFLOW_WORKSPACE=
    ```
 
 3. **Create `.streamlit/secrets.toml`** for Streamlit:
@@ -28,6 +30,8 @@ All API keys have been removed from the code and are now managed through environ
    ```toml
    ROBOFLOW_API_KEY = "your_actual_roboflow_api_key"
    GOOGLE_API_KEY = "your_actual_google_api_key"
+   ROBOFLOW_PROJECT = "solarpv-india-lczsp"
+   ROBOFLOW_WORKSPACE = ""
    ```
 
 5. **Install dependencies**:

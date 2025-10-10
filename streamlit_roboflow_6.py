@@ -11,7 +11,7 @@ import numpy as np
 
 # --- Initialize Roboflow ---
 rf = Roboflow(api_key=os.getenv("ROBOFLOW_API_KEY"))
-project = rf.workspace().project("solarpv-india-lczsp")
+project = rf.workspace().project(os.getenv("ROBOFLOW_PROJECT", ""))
 model = project.version(4).model
 
 # --- Helper function: Google Maps image download ---

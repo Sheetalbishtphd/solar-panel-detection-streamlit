@@ -21,10 +21,11 @@ load_dotenv()
 # --- Initialize Roboflow ---
 ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+ROBOFLOW_PROJECT = os.getenv("ROBOFLOW_PROJECT", "")
 
 print("Initializing Roboflow model...")
 rf = Roboflow(api_key=ROBOFLOW_API_KEY)
-project = rf.workspace().project("solarpv-india-lczsp")
+project = rf.workspace().project(ROBOFLOW_PROJECT)
 model = project.version(8).model
 print("Model initialized successfully!")
 

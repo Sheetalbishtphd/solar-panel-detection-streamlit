@@ -14,9 +14,13 @@ import re
 try:
     ROBOFLOW_API_KEY = st.secrets["ROBOFLOW_API_KEY"]
     GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
+    ROBOFLOW_PROJECT = st.secrets.get("ROBOFLOW_PROJECT", "")
+    ROBOFLOW_WORKSPACE = st.secrets.get("ROBOFLOW_WORKSPACE", "")
 except:
     ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "")
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+    ROBOFLOW_PROJECT = os.getenv("ROBOFLOW_PROJECT", "")
+    ROBOFLOW_WORKSPACE = os.getenv("ROBOFLOW_WORKSPACE", "")
 
 if not ROBOFLOW_API_KEY:
     st.error("⚠️ ROBOFLOW_API_KEY not found. Please add it to .streamlit/secrets.toml")
@@ -25,12 +29,13 @@ if not ROBOFLOW_API_KEY:
 try:
     rf = Roboflow(api_key=ROBOFLOW_API_KEY)
     # Try to get the project directly without workspace()
-    project = rf.workspace().project("solarpv-india-lczsp")
+    project = rf.workspace().project(ROBOFLOW_PROJECT)
     model = project.version(6).model
 except AttributeError:
     # Fallback: use direct workspace name if workspace() fails
     rf = Roboflow(api_key=ROBOFLOW_API_KEY)
-    project = rf.workspace("sheetalbishtphd-hgwco").project("solarpv-india-lczsp")
+    workspace_name = ROBOFLOW_WORKSPACE or "sheetalbishtphd-hgwco"
+    project = rf.workspace(workspace_name).project(ROBOFLOW_PROJECT)
     model = project.version(6).model
 
 # --- Helper function: Convert DMS to decimal degrees ---

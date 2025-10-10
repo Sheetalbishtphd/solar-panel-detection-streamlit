@@ -17,7 +17,7 @@ from pathlib import Path
 # --- Initialize Roboflow ---
 print("Initializing Roboflow model...")
 rf = Roboflow(api_key=os.getenv("ROBOFLOW_API_KEY"))
-project = rf.workspace().project("solarpv-india-lczsp")
+project = rf.workspace().project(os.getenv("ROBOFLOW_PROJECT", ""))
 model = project.version(8).model
 print("Model initialized successfully!")
 
