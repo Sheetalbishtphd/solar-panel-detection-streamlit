@@ -251,7 +251,7 @@ def add_ui_elements(image, detection_count, timestamp=None):
     width, height = img.size
     
     # Add detection counter (bottom-right corner)
-    counter_text = f"{detection_count} objects detected"
+    counter_text = f"Solar panels detected: {detection_count}"
     # Estimate text size (approximate)
     text_width = len(counter_text) * 8
     text_height = 20
@@ -384,7 +384,7 @@ def process_csv_file(csv_path, output_dir='output'):
         
         # Print results
         if detection_count > 0:
-            print(f"✅ SUCCESS: {detection_count} solar panel(s) detected")
+            print(f"✅ SUCCESS: Solar panels detected: {detection_count}")
         else:
             print(f"ℹ️  No solar panels detected")
         
@@ -417,7 +417,7 @@ def process_csv_file(csv_path, output_dir='output'):
     total_detections = sum([r['Detections'] for r in results])
     print(f"Successful: {successful}")
     print(f"Failed: {len(results) - successful}")
-    print(f"Total solar panels detected: {total_detections}")
+    print(f"Solar panels detected: {total_detections}")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
