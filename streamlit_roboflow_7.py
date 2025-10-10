@@ -256,7 +256,7 @@ def add_ui_elements(image, detection_count, timestamp=None):
     width, height = img.size
     
     # Add detection counter (bottom-right corner)
-    counter_text = f"Solar panels detected: {detection_count}"
+    counter_text = f"Solar panels installed: {detection_count}"
     # Estimate text size (approximate)
     text_width = len(counter_text) * 8
     text_height = 20
@@ -346,9 +346,9 @@ if mode == "Upload Image":
             
             # Show detection statistics
             if detection_count > 0:
-                st.markdown(f'<div class="detection-counter">✅ Solar panels detected: {detection_count}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="detection-counter">✅ Solar panels installed: {detection_count}</div>', unsafe_allow_html=True)
             else:
-                st.markdown('<div class="detection-counter">❌ No solar panels detected</div>', unsafe_allow_html=True)
+                st.markdown('<div class="detection-counter">❌ No solar panels installed</div>', unsafe_allow_html=True)
 
 elif mode == "Latitude/Longitude":
     # Input section at the top
@@ -423,9 +423,9 @@ elif mode == "Latitude/Longitude":
                     
                     # Show detection statistics below both images
                     if detection_count > 0:
-                        st.markdown(f'<div class="detection-counter">✅ Solar panels detected: {detection_count}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="detection-counter">✅ Solar panels installed: {detection_count}</div>', unsafe_allow_html=True)
                     else:
-                        st.markdown('<div class="detection-counter">❌ No solar panels detected</div>', unsafe_allow_html=True)
+                        st.markdown('<div class="detection-counter">❌ No solar panels installed</div>', unsafe_allow_html=True)
             else:
                 st.error("❌ Invalid coordinate format. Please check the help section for supported formats.")
         else:
